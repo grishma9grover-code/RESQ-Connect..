@@ -1,46 +1,90 @@
-<html>
-    <head>
-<style>
-      body {background-image:url(Rescue\ Watch\ Over\ the\ Sunset\ Valley.png);}
-     .box {width: 600px;
-        height: 500px;
-        background: rgba(7, 30, 58, 0.82);
-        position: absolute;
-    right: 350px;
-    top: 100px;
-text-align: center;}
-    .subtitle { color: gray;}
 
-</style>
-    </head>
+<html>
+<head>
+    <title>ResQ Connect - Login</title>
+
+    <style>
+        body {
+            background-image: url("Rescue Watch Over the Sunset Valley.png");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .box {
+            width: 600px;
+            height: 400px;
+            background: rgba(7, 30, 58, 0.82);
+            position: absolute;
+            right: 350px;
+            top: 100px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: gray;
+        }
+
+    </style>
+</head>
+
 <body>
 
     <div class="box">
 
         <h2 style="color: white;">Welcome to ResQ Connect</h2>
-        <p class="subtitle" style="color: white;">Login to continue</p>
 
-        <form>
- <label style="color: white;">Login as</label> 
+        <p class="subtitle" style="color: white;">
+            Login to continue
+        </p>
 
-<br><br>
- <label style="color: white;">Email</label>
-            <br><input type="email" placeholder="Enter your email" required>
-        <br><br>
-<label style="color: white;">Password </label>
-<br><input type="password" placeholder="Enter your password"  minlength="8"
-    maxlength="15" required>
-       <br> <br>
-            <input type="submit" value="Login" class="login-btn"  style="background-color: red; color: white; padding: 10px 130px;">
-<hr><b>
-            <p class="signup-text" style="color: white;">
-               Don't have an account? <br>
-                <a href="Signup.html">Sign Up</a>
-            </p>
-</b>
+        <form onsubmit="loginUser(event)">
+
+
+            <br>
+
+            <label style="color: white;">Email</label>
+
+            <br>
+
+            <input type="email"
+                   id="email"
+                   placeholder="Enter your email"
+                   required>
+
+            <br><br>
+
+            <label style="color: white;">Password</label>
+
+            <br>
+
+            <input type="password"
+                   id="password"
+                   placeholder="Enter your password"
+                   minlength="8"
+                   maxlength="15"
+                   required>
+
+            <br><br>
+
+            <input type="submit"
+                   value="Login"
+                   class="login-btn"
+                   style="background-color: red; color: white; padding: 10px 130px; cursor:pointer;">
+
+            <hr>
+
+            <b>
+                <p class="signup-text" style="color: white;">
+                    Don't have an account? <br>
+                    <a href="Signup.html">Sign Up</a>
+                </p>
+            </b>
+
         </form>
 
     </div>
+
+    <script src="connect.js"></script>
 
 </body>
 </html>
