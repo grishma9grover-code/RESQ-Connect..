@@ -1,0 +1,536 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResQ Connect | Rescue Team Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f6fb;
+    color: #222;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #102542;
+    color: white;
+    position: fixed;
+    padding: 25px 18px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.tagline {
+    font-size: 11px;
+    color: #b8c9df;
+    margin-bottom: 35px;
+}
+
+.sidebar h3 {
+    font-size: 13px;
+    color: #9eb3ce;
+    margin: 20px 10px 12px;
+    text-transform: uppercase;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 13px 12px;
+    margin: 6px 0;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #2474c6;
+}
+
+/* Main Content */
+.main {
+    margin-left: 240px;
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.topbar h1 {
+    color: #102542;
+    font-size: 27px;
+}
+
+.profile {
+    background: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Welcome Banner */
+.welcome {
+    background: linear-gradient(120deg, #1766ad, #102542);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    margin-bottom: 9px;
+}
+
+.welcome p {
+    color: #e0ebf8;
+    font-size: 14px;
+}
+
+/* Statistics */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.stat-card {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.stat-card p {
+    color: #777;
+    font-size: 14px;
+}
+
+.stat-card h2 {
+    font-size: 28px;
+    margin-top: 10px;
+    color: #102542;
+}
+
+.stat-card.urgent h2 {
+    color: #dc3545;
+}
+
+.stat-card.completed h2 {
+    color: #198754;
+}
+
+/* Sections */
+.section {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.section h2 {
+    color: #102542;
+    margin-bottom: 18px;
+    font-size: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+th, td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+th {
+    background: #edf3fa;
+    color: #102542;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.status {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.pending {
+    background: #fff0d5;
+    color: #a66b00;
+}
+
+.progress {
+    background: #dcecff;
+    color: #1766ad;
+}
+
+.done {
+    background: #d9f4e4;
+    color: #16834a;
+}
+
+.priority {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+button {
+    background: #1766ad;
+    color: white;
+    border: none;
+    padding: 8px 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+button:hover {
+    background: #102542;
+}
+
+.secondary-btn {
+    background: #198754;
+}
+
+.secondary-btn:hover {
+    background: #11633c;
+}
+
+/* Team Information */
+.team-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.info-card {
+    background: #f5f8fc;
+    padding: 18px;
+    border-radius: 9px;
+    border-left: 4px solid #2474c6;
+}
+
+.info-card h3 {
+    color: #102542;
+    margin-bottom: 10px;
+}
+
+.info-card p {
+    color: #555;
+    font-size: 14px;
+    margin: 7px 0;
+}
+
+/* Emergency Details */
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.details p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+}
+
+select {
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+@media(max-width: 850px) {
+    .sidebar {
+        width: 190px;
+    }
+
+    .main {
+        margin-left: 190px;
+        padding: 20px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .stats,
+    .team-info {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo">ResQ Connect</div>
+    <div class="tagline">Locate • Connect • Save</div>
+
+    <h3>Rescue Operations</h3>
+
+    <a href="#" class="active">Dashboard</a>
+    <a href="#assigned">Assigned Emergencies</a>
+    <a href="#team">My Team</a>
+    <a href="#updates">Status Updates</a>
+
+    <h3>Account</h3>
+
+    <a href="homepg.html">Home</a>
+    <a href="Login.html">Logout</a>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <div class="topbar">
+        <h1>Rescue Team Dashboard</h1>
+        <div class="profile">🚑 Rescue Team Member</div>
+    </div>
+
+    <!-- Welcome -->
+    <div class="welcome">
+        <h2>Welcome, Rescue Team!</h2>
+        <p>Your courage and quick response can save lives. Stay alert and keep your team updated.</p>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats">
+
+        <div class="stat-card">
+            <p>Assigned Emergencies</p>
+            <h2 id="totalCases">3</h2>
+        </div>
+
+        <div class="stat-card urgent">
+            <p>Urgent Cases</p>
+            <h2>1</h2>
+        </div>
+
+        <div class="stat-card completed">
+            <p>Completed Missions</p>
+            <h2 id="completedCases">1</h2>
+        </div>
+
+    </div>
+
+    <!-- Assigned Emergencies -->
+    <div class="section" id="assigned">
+        <h2>My Assigned Emergencies</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Case ID</th>
+                        <th>Emergency Type</th>
+                        <th>Location</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="caseTable">
+
+                    <tr>
+                        <td>SR001</td>
+                        <td>Flood Rescue</td>
+                        <td>Model Town</td>
+                        <td class="priority">High</td>
+                        <td><span class="status progress">In Progress</span></td>
+                        <td><button onclick="updateStatus(this)">Update</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>SR002</td>
+                        <td>Medical Emergency</td>
+                        <td>Green Park</td>
+                        <td class="priority">Urgent</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td><button onclick="updateStatus(this)">Update</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>SR003</td>
+                        <td>Fire Rescue</td>
+                        <td>City Centre</td>
+                        <td>Medium</td>
+                        <td><span class="status done">Completed</span></td>
+                        <td><button onclick="updateStatus(this)">Update</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Team Information -->
+    <div class="section" id="team">
+        <h2>My Rescue Team</h2>
+
+        <div class="team-info">
+
+            <div class="info-card">
+                <h3>🚑 Team Alpha</h3>
+                <p><strong>Team Leader:</strong> Rahul Sharma</p>
+                <p><strong>Members:</strong> 5</p>
+                <p><strong>Vehicle:</strong> Rescue Van</p>
+                <p><strong>Availability:</strong> On Duty</p>
+            </div>
+
+            <div class="info-card">
+                <h3>📍 Current Assignment</h3>
+                <p><strong>Case ID:</strong> SR001</p>
+                <p><strong>Location:</strong> Model Town</p>
+                <p><strong>Mission:</strong> Flood Rescue</p>
+                <p><strong>Priority:</strong> High</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Status Updates -->
+    <div class="section" id="updates">
+        <h2>Update Mission Status</h2>
+
+        <div class="details">
+            <div>
+                <strong>Update your current mission progress</strong>
+                <p>Select the latest status of your rescue operation.</p>
+            </div>
+
+            <div>
+                <select id="missionStatus">
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+
+                <button class="secondary-btn" onclick="saveMissionStatus()">
+                    Save Status
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+// Update the status of an individual emergency
+function updateStatus(button) {
+
+    let row = button.parentElement.parentElement;
+    let statusCell = row.cells[4];
+
+    let newStatus = prompt(
+        "Enter new status: Pending, In Progress, or Completed"
+    );
+
+    if (newStatus === null) {
+        return;
+    }
+
+    newStatus = newStatus.trim().toLowerCase();
+
+    if (newStatus === "pending") {
+        statusCell.innerHTML =
+            '<span class="status pending">Pending</span>';
+    }
+    else if (newStatus === "in progress") {
+        statusCell.innerHTML =
+            '<span class="status progress">In Progress</span>';
+    }
+    else if (newStatus === "completed") {
+        statusCell.innerHTML =
+            '<span class="status done">Completed</span>';
+    }
+    else {
+        alert("Please enter a valid status.");
+        return;
+    }
+
+    updateCompletedCount();
+    alert("Emergency status updated successfully!");
+}
+
+// Count completed cases
+function updateCompletedCount() {
+
+    let rows = document.querySelectorAll("#caseTable tr");
+    let completed = 0;
+
+    rows.forEach(function(row) {
+        if (row.cells[4].innerText.trim() === "Completed") {
+            completed++;
+        }
+    });
+
+    document.getElementById("completedCases").innerText = completed;
+}
+
+// Save overall mission status
+function saveMissionStatus() {
+
+    let status = document.getElementById("missionStatus").value;
+
+    alert("Mission status updated to: " + status);
+}
+
+</script>
+
+</body>
+</html>
