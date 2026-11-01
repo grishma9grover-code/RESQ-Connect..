@@ -2,818 +2,704 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ResQ Connect | Welcome Dashboard</title>
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --navy: #0b2745;
-    --navy-light: #163e65;
-    --blue: #1769d2;
-    --red: #ef343b;
-    --bg: #f1f6fc;
-    --border: #dce7f4;
-    --text: #142e4d;
-    --muted: #71839b;
-    --white: #ffffff;
-}
-
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-}
-
-/* TOP HEADER */
-
-.topbar {
-    height: 100px;
-    background:
-        linear-gradient(90deg, #09223d 0%, #12395c 55%,
-        #1c4568 100%);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Decorative mountain shapes */
-
-.topbar::before {
-    content: "";
-    position: absolute;
-    right: 15%;
-    bottom: -40px;
-    width: 400px;
-    height: 120px;
-    background: #264b6c;
-    opacity: 0.65;
-    clip-path: polygon(0 100%, 20% 35%, 32% 65%,
-    48% 8%, 65% 60%, 79% 20%, 100% 100%);
-}
-
-.topbar::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: -45px;
-    width: 350px;
-    height: 115px;
-    background: #365a79;
-    opacity: 0.45;
-    clip-path: polygon(0 100%, 25% 25%, 42% 60%,
-    58% 10%, 76% 65%, 100% 20%, 100% 100%);
-}
-
-.brand, .header-right {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.brand-logo {
-    color: var(--red);
-    font-size: 39px;
-    font-weight: 900;
-}
-
-.brand h1 {
-    font-size: 27px;
-    letter-spacing: -0.7px;
-}
-
-.brand h1 span {
-    color: var(--red);
-}
-
-.brand p {
-    font-size: 13px;
-    color: #d7e4f2;
-    margin-top: 3px;
-}
-
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-}
-
-.avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: #e6f0fc;
-    color: var(--navy);
-    display: grid;
-    place-items: center;
-    font-size: 22px;
-}
-
-/* PAGE LAYOUT */
-
-.layout {
-    display: flex;
-    min-height: calc(100vh - 100px);
-}
-
-/* SIDEBAR */
-
-.sidebar {
-    width: 225px;
-    flex-shrink: 0;
-    background: linear-gradient(180deg, #0c2b49, #09213a);
-    color: white;
-    padding: 22px 12px;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-label {
-    font-size: 10px;
-    color: #8ca9c7;
-    letter-spacing: 1.5px;
-    padding: 5px 13px 14px;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    padding: 13px 14px;
-    border-radius: 9px;
-    margin-bottom: 6px;
-    text-decoration: none;
-    color: #d9e6f5;
-    font-size: 14px;
-    transition: 0.2s;
-}
-
-.nav-item:hover,
-.nav-item.active {
-    background: #204a72;
-    color: white;
-}
-
-.nav-icon {
-    font-size: 19px;
-    width: 23px;
-    text-align: center;
-}
-
-.sidebar-bottom {
-    margin-top: auto;
-    padding: 19px 12px;
-    border: 1px solid #244461;
-    border-radius: 10px;
-    text-align: center;
-    color: #c7d9eb;
-    line-height: 1.6;
-    font-size: 12px;
-}
-
-.sidebar-bottom .mountain {
-    color: #78a9db;
-    font-size: 35px;
-    margin-bottom: 7px;
-}
-
-/* MAIN CONTENT */
-
-main {
-    flex: 1;
-    min-width: 0;
-    padding: 27px;
-}
-
-.welcome-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 23px;
-}
-
-.welcome-heading h2 {
-    font-size: 27px;
-    margin-bottom: 7px;
-}
-
-.welcome-heading p {
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.welcome-tag {
-    background: #e2edfc;
-    color: #1b5da9;
-    padding: 9px 13px;
-    border-radius: 20px;
-    font-size: 12px;
-    white-space: nowrap;
-}
-
-/* WELCOME HERO */
-
-.hero {
-    background: linear-gradient(120deg, #0b2c4c, #1d5787);
-    color: white;
-    border-radius: 15px;
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 25px;
-    margin-bottom: 23px;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-content {
-    max-width: 560px;
-    position: relative;
-    z-index: 1;
-}
-
-.hero-label {
-    color: #b9d9fa;
-    text-transform: uppercase;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    margin-bottom: 13px;
-}
-
-.hero h2 {
-    font-size: 28px;
-    line-height: 1.3;
-    margin-bottom: 12px;
-}
-
-.hero p {
-    font-size: 14px;
-    line-height: 1.8;
-    color: #d6e6f7;
-    margin-bottom: 22px;
-}
-
-.hero-illustration {
-    width: 180px;
-    min-width: 140px;
-    height: 160px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    font-size: 82px;
-}
-
-.button {
-    display: inline-block;
-    padding: 12px 18px;
-    border-radius: 7px;
-    background: var(--red);
-    color: white;
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.button:hover {
-    background: #d92530;
-    transform: translateY(-1px);
-}
-
-.button-outline {
-    background: transparent;
-    border: 1px solid #b9d4ed;
-    margin-left: 8px;
-}
-
-.button-outline:hover {
-    background: rgba(255,255,255,0.12);
-}
-
-/* SECTION HEADINGS */
-
-.section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 27px 0 15px;
-    gap: 10px;
-}
-
-.section-heading h3 {
-    font-size: 18px;
-}
-
-.section-heading p {
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 4px;
-}
-
-/* GETTING STARTED CARDS */
-
-.steps-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 15px;
-}
-
-.step-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    gap: 15px;
-    transition: 0.2s;
-}
-
-.step-card:hover {
-    border-color: #a6c7ef;
-    box-shadow: 0 5px 18px rgba(20,60,100,0.06);
-}
-
-.step-number {
-    width: 43px;
-    height: 43px;
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    border-radius: 11px;
-    background: #eaf2ff;
-    font-size: 21px;
-}
-
-.step-card h4 {
-    font-size: 14px;
-    margin: 2px 0 7px;
-}
-
-.step-card p {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.7;
-    margin-bottom: 13px;
-}
-
-.text-link {
-    text-decoration: none;
-    color: #1765bd;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.text-link:hover {
-    text-decoration: underline;
-}
-
-/* EMPTY CASES PANEL */
-
-.empty-panel {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 25px;
-    text-align: center;
-}
-
-.empty-icon {
-    margin: 0 auto 12px;
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    background: #edf4ff;
-    color: #2867b0;
-    display: grid;
-    place-items: center;
-    font-size: 26px;
-}
-
-.empty-panel h4 {
-    font-size: 16px;
-    margin-bottom: 8px;
-}
-
-.empty-panel p {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.7;
-    max-width: 470px;
-    margin: 0 auto 17px;
-}
-
-/* BOTTOM INFO CARDS */
-
-.bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.info-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-}
-
-.info-card h4 {
-    font-size: 14px;
-    margin-bottom: 9px;
-}
-
-.info-card p {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.8;
-}
-
-.tip-icon {
-    font-size: 25px;
-    margin-bottom: 12px;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 1050px) {
-    .sidebar {
-        width: 190px;
-    }
-
-    main {
-        padding: 20px;
-    }
-
-    .hero-illustration {
-        width: 130px;
-        height: 130px;
-        font-size: 65px;
-    }
-}
-
-@media (max-width: 760px) {
-    .topbar {
-        height: 80px;
-        padding: 0 16px;
-    }
-
-    .brand-logo {
-        font-size: 30px;
-    }
-
-    .brand h1 {
-        font-size: 21px;
-    }
-
-    .brand p {
-        font-size: 11px;
-    }
-
-    .profile span:last-child {
-        display: none;
-    }
-
-    .layout {
-        min-height: calc(100vh - 80px);
-    }
-
-    .sidebar {
-        width: 62px;
-        padding: 15px 7px;
-    }
-
-    .sidebar-label,
-    .nav-text,
-    .sidebar-bottom {
-        display: none;
-    }
-
-    .nav-item {
-        justify-content: center;
-        padding: 13px 5px;
-    }
-
-    .nav-icon {
-        font-size: 21px;
-    }
-
-    main {
-        padding: 16px;
-    }
-
-    .welcome-heading h2 {
-        font-size: 22px;
-    }
-
-    .welcome-tag {
-        display: none;
-    }
-
-    .hero {
-        padding: 22px;
-    }
-
-    .hero h2 {
-        font-size: 23px;
-    }
-
-    .hero-illustration {
-        display: none;
-    }
-
-    .steps-grid,
-    .bottom-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 430px) {
-    .brand-logo {
-        font-size: 25px;
-    }
-
-    .brand h1 {
-        font-size: 18px;
-    }
-
-    .hero {
-        padding: 19px;
-    }
-
-    .hero h2 {
-        font-size: 21px;
-    }
-
-    .button {
-        padding: 11px 12px;
-        font-size: 12px;
-    }
-
-    .button-outline {
-        margin: 9px 0 0;
-    }
-
-    .welcome-heading h2 {
-        font-size: 20px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinator Dashboard | ResQ Connect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fa;
+            color: #263445;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background: #142e49;
+            color: white;
+            position: fixed;
+            padding: 25px 18px;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: #b8c9d9;
+            font-size: 11px;
+            margin-bottom: 45px;
+        }
+
+        .sidebar h4 {
+            color: #91a8bf;
+            font-size: 11px;
+            margin: 25px 10px 12px;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #e1eaf2;
+            text-decoration: none;
+            padding: 13px 12px;
+            border-radius: 7px;
+            margin-bottom: 7px;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #294c70;
+            color: white;
+        }
+
+        /* MAIN CONTENT */
+
+        .main {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .topbar p {
+            color: #788797;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .profile {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 9px;
+            box-shadow: 0 2px 8px #0000000d;
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            background: linear-gradient(120deg, #173c5d, #28658b);
+            color: white;
+            padding: 28px;
+            border-radius: 13px;
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            margin-bottom: 9px;
+        }
+
+        .welcome p {
+            color: #dceaf5;
+            font-size: 14px;
+        }
+
+        /* STATISTICS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 11px;
+            box-shadow: 0 3px 12px #00000009;
+            border-left: 4px solid #367da9;
+        }
+
+        .stat-card h2 {
+            font-size: 29px;
+            margin: 10px 0;
+        }
+
+        .stat-card p {
+            color: #758395;
+            font-size: 13px;
+        }
+
+        .urgent {
+            border-left-color: #dc3545;
+        }
+
+        .resolved {
+            border-left-color: #269b69;
+        }
+
+        .active {
+            border-left-color: #e6a23c;
+        }
+
+        /* SECTIONS */
+
+        .section {
+            background: white;
+            padding: 23px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px #00000009;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 12px;
+        }
+
+        .section-heading h3 {
+            font-size: 18px;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #d7e0e8;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        input {
+            min-width: 180px;
+        }
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th {
+            text-align: left;
+            color: #758395;
+            font-size: 12px;
+            background: #f6f8fb;
+            padding: 14px 10px;
+        }
+
+        td {
+            padding: 16px 10px;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 13px;
+        }
+
+        .status {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .searching {
+            background: #fff0d9;
+            color: #a66b0b;
+        }
+
+        .assigned {
+            background: #e2efff;
+            color: #2868a8;
+        }
+
+        .completed {
+            background: #def5e9;
+            color: #238052;
+        }
+
+        .high {
+            color: #d52f40;
+            font-weight: bold;
+        }
+
+        .medium {
+            color: #c58a24;
+            font-weight: bold;
+        }
+
+        .low {
+            color: #238052;
+            font-weight: bold;
+        }
+
+        /* BUTTONS */
+
+        button {
+            border: none;
+            padding: 9px 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .view-btn {
+            background: #e8f1fa;
+            color: #245a84;
+        }
+
+        .assign-btn {
+            background: #1d557e;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.82;
+        }
+
+        /* RESCUE TEAMS */
+
+        .teams {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .team-card {
+            border: 1px solid #e6ebf0;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .team-card h4 {
+            margin-bottom: 10px;
+        }
+
+        .team-card p {
+            color: #788797;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .available {
+            color: #238052;
+            font-weight: bold;
+        }
+
+        .on-mission {
+            color: #c58a24;
+            font-weight: bold;
+        }
+
+        /* ACTIVITY */
+
+        .activity {
+            padding: 13px 0;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 13px;
+        }
+
+        .activity small {
+            display: block;
+            color: #8794a3;
+            margin-top: 5px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .teams {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+
+            .sidebar .tagline,
+            .sidebar h4 {
+                display: none;
+            }
+
+            .sidebar a {
+                display: inline-block;
+                padding: 9px;
+                font-size: 12px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 16px;
+            }
+
+            .stats,
+            .teams {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                gap: 12px;
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-
-<header class="topbar">
-    <div class="brand">
-        <div class="brand-logo">⛰</div>
-        <div>
-            <h1>Res<span>Q</span> Connect</h1>
-            <p>Locate · Connect · Save</p>
-        </div>
-    </div>
-
-    <div class="header-right">
-        <div class="profile">
-            <div class="avatar">👤</div>
-            <span>New Coordinator</span>
-            <span>⌄</span>
-        </div>
-    </div>
-</header>
-
-<div class="layout">
-
     <!-- SIDEBAR -->
 
     <aside class="sidebar">
-        <p class="sidebar-label">WORKSPACE</p>
 
-        <a href="#welcome" class="nav-item active">
-            <span class="nav-icon">⌂</span>
-            <span class="nav-text">Dashboard</span>
-        </a>
+        <div class="logo">🆘 ResQ Connect</div>
+        <div class="tagline">LOCATE • CONNECT • SAVE</div>
 
-        <a href="#getting-started" class="nav-item">
-            <span class="nav-icon">✦</span>
-            <span class="nav-text">Get Started</span>
-        </a>
+        <h4>MAIN MENU</h4>
 
-        <a href="#teams" class="nav-item">
-            <span class="nav-icon">♟</span>
-            <span class="nav-text">Rescue Teams</span>
-        </a>
+        <a href="#" class="active">▦ Dashboard</a>
+        <a href="#cases">▤ All Cases</a>
+        <a href="#teams">🚑 Rescue Teams</a>
+        <a href="#activity">◷ Recent Activity</a>
 
-        <a href="#map" class="nav-item">
-            <span class="nav-icon">⌖</span>
-            <span class="nav-text">Map View</span>
-        </a>
+        <h4>ACCOUNT</h4>
 
-        <a href="#resources" class="nav-item">
-            <span class="nav-icon">▤</span>
-            <span class="nav-text">Resources</span>
-        </a>
+        <a href="homepg.html">⌂ Home</a>
+        <a href="Login.html">↪ Logout</a>
 
-        <a href="#settings" class="nav-item">
-            <span class="nav-icon">⚙</span>
-            <span class="nav-text">Settings</span>
-        </a>
-
-        <div class="sidebar-bottom">
-            <div class="mountain">⛰</div>
-            <strong>Every second counts.</strong><br>
-            Together, we save lives.
-        </div>
     </aside>
 
-    <!-- MAIN DASHBOARD -->
 
-    <main id="welcome">
+    <!-- MAIN CONTENT -->
 
-        <div class="welcome-heading">
+    <main class="main">
+
+        <div class="topbar">
+
             <div>
-                <h2>Welcome to ResQ Connect! 👋</h2>
-                <p>Your rescue coordination workspace starts here.<br>
-                Let's get everything ready before your first operation.</p>
+                <h2>Coordinator Dashboard</h2>
+                <p>Manage emergencies and coordinate rescue operations.</p>
             </div>
 
-            <span class="welcome-tag">✦ New Account</span>
+            <div class="profile">
+                👤 Coordinator
+            </div>
+
         </div>
 
-        <!-- WELCOME BANNER -->
 
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-label">YOUR JOURNEY STARTS HERE</div>
+        <!-- WELCOME -->
 
-                <h2>Every great rescue begins with being prepared.</h2>
+        <section class="welcome">
 
-                <p>
-                    Set up your workspace, connect with rescue teams,
-                    and get familiar with your tools. When an emergency
-                    arises, you'll be ready to coordinate a response.
-                </p>
+            <h2>Welcome, Coordinator! 👋</h2>
 
-                <a href="#getting-started" class="button">
-                    Set Up My Workspace →
-                </a>
+            <p>
+                Here's an overview of the rescue activities
+                and emergency reports.
+            </p>
 
-                <a href="#teams" class="button button-outline">
-                    Explore Teams
-                </a>
-            </div>
-
-            <div class="hero-illustration">🚁</div>
         </section>
 
-        <!-- GETTING STARTED -->
 
-        <section id="getting-started">
+        <!-- STATISTICS -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <p>Total Cases</p>
+                <h2 id="totalCases">4</h2>
+                <p>All reported cases</p>
+            </div>
+
+            <div class="stat-card active">
+                <p>Active Cases</p>
+                <h2 id="activeCases">2</h2>
+                <p>Currently in progress</p>
+            </div>
+
+            <div class="stat-card resolved">
+                <p>Resolved Cases</p>
+                <h2 id="resolvedCases">1</h2>
+                <p>Successfully completed</p>
+            </div>
+
+            <div class="stat-card urgent">
+                <p>Urgent Cases</p>
+                <h2 id="urgentCases">1</h2>
+                <p>Require immediate attention</p>
+            </div>
+
+        </section>
+
+
+        <!-- CASE MANAGEMENT -->
+
+        <section class="section" id="cases">
 
             <div class="section-heading">
-                <div>
-                    <h3>Let's Get You Started</h3>
-                    <p>Complete these first steps to prepare your workspace.</p>
+
+                <h3>Emergency Cases</h3>
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search case or location..."
+                    >
+
+                    <select id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="Searching">Searching</option>
+                        <option value="Assigned">Assigned</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+
                 </div>
-            </div>
-
-            <div class="steps-grid">
-
-                <article class="step-card" id="settings">
-                    <div class="step-number">👤</div>
-                    <div>
-                        <h4>1. Complete Your Profile</h4>
-                        <p>
-                            Add your coordinator details and contact
-                            information so your team can identify you.
-                        </p>
-                        <a href="#settings" class="text-link">
-                            Set Up Profile →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="step-card" id="teams">
-                    <div class="step-number">👥</div>
-                    <div>
-                        <h4>2. Connect Rescue Teams</h4>
-                        <p>
-                            Discover available teams and prepare to
-                            coordinate people during emergencies.
-                        </p>
-                        <a href="#teams" class="text-link">
-                            Explore Teams →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="step-card" id="map">
-                    <div class="step-number">📍</div>
-                    <div>
-                        <h4>3. Explore the Map</h4>
-                        <p>
-                            Get familiar with the location interface
-                            used to understand incidents and response areas.
-                        </p>
-                        <a href="#map" class="text-link">
-                            Open Map View →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="step-card" id="resources">
-                    <div class="step-number">🧰</div>
-                    <div>
-                        <h4>4. Review Resources</h4>
-                        <p>
-                            Learn how supplies, emergency contacts,
-                            and coordination resources are organized.
-                        </p>
-                        <a href="#resources" class="text-link">
-                            Explore Resources →
-                        </a>
-                    </div>
-                </article>
 
             </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Case ID</th>
+                            <th>Case Type</th>
+                            <th>Location</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="caseTable">
+
+                        <tr data-status="Searching">
+                            <td>SR001</td>
+                            <td>Missing Person</td>
+                            <td>Ludhiana</td>
+                            <td class="high">High</td>
+                            <td><span class="status searching">Searching</span></td>
+                            <td><button class="assign-btn" onclick="assignTeam('SR001')">Assign</button></td>
+                        </tr>
+
+                        <tr data-status="Assigned">
+                            <td>SR002</td>
+                            <td>Emergency</td>
+                            <td>Khanna</td>
+                            <td class="medium">Medium</td>
+                            <td><span class="status assigned">Assigned</span></td>
+                            <td><button class="view-btn" onclick="viewCase('SR002')">View</button></td>
+                        </tr>
+
+                        <tr data-status="Resolved">
+                            <td>SR003</td>
+                            <td>Missing Person</td>
+                            <td>Jagraon</td>
+                            <td class="low">Low</td>
+                            <td><span class="status completed">Resolved</span></td>
+                            <td><button class="view-btn" onclick="viewCase('SR003')">View</button></td>
+                        </tr>
+
+                        <tr data-status="Searching">
+                            <td>SR004</td>
+                            <td>Medical Emergency</td>
+                            <td>Jalandhar</td>
+                            <td class="high">High</td>
+                            <td><span class="status searching">Searching</span></td>
+                            <td><button class="assign-btn" onclick="assignTeam('SR004')">Assign</button></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </section>
 
-        <!-- EMPTY CASES SECTION -->
 
-        <section id="cases">
+        <!-- RESCUE TEAMS -->
+
+        <section class="section" id="teams">
 
             <div class="section-heading">
-                <div>
-                    <h3>Your Operations</h3>
-                    <p>Your dashboard will grow as you begin coordinating.</p>
-                </div>
+                <h3>Rescue Team Availability</h3>
             </div>
 
-            <div class="empty-panel">
-                <div class="empty-icon">📋</div>
+            <div class="teams">
 
-                <h4>No operations yet</h4>
+                <div class="team-card">
+                    <h4>🚑 Team Alpha</h4>
+                    <p>Status: <span class="available">Available</span></p>
+                    <p>Members: 5</p>
+                    <button class="assign-btn"
+                        onclick="assignRescue('Team Alpha')">
+                        Assign Case
+                    </button>
+                </div>
 
-                <p>
-                    You're all set to get started. When your first
-                    emergency report is received, the relevant case
-                    information can appear in this space.
-                </p>
+                <div class="team-card">
+                    <h4>🚑 Team Bravo</h4>
+                    <p>Status: <span class="on-mission">On Mission</span></p>
+                    <p>Members: 4</p>
+                    <button class="view-btn"
+                        onclick="alert('Team Bravo is currently on a mission.')">
+                        View Details
+                    </button>
+                </div>
 
-                <a href="#report" class="button">
-                    Explore Emergency Reporting →
-                </a>
+                <div class="team-card">
+                    <h4>🚑 Team Charlie</h4>
+                    <p>Status: <span class="available">Available</span></p>
+                    <p>Members: 6</p>
+                    <button class="assign-btn"
+                        onclick="assignRescue('Team Charlie')">
+                        Assign Case
+                    </button>
+                </div>
+
             </div>
 
         </section>
 
-        <!-- FIRST ACTIONS -->
 
-        <section class="bottom-grid">
+        <!-- RECENT ACTIVITY -->
 
-            <article class="info-card" id="report">
-                <div class="tip-icon">🚨</div>
-                <h4>Emergency Reporting</h4>
-                <p>
-                    Learn how to record an incident, capture its location,
-                    and provide the details needed for a coordinated response.
-                </p>
-            </article>
+        <section class="section" id="activity">
 
-            <article class="info-card">
-                <div class="tip-icon">🛡️</div>
-                <h4>Ready Before the Emergency</h4>
-                <p>
-                    Keep contact information organized, understand your
-                    coordination tools, and follow established emergency
-                    response procedures.
-                </p>
-            </article>
+            <div class="section-heading">
+                <h3>Recent Activity</h3>
+            </div>
+
+            <div class="activity">
+                🔴 New emergency report received — SR004
+                <small>Recently reported</small>
+            </div>
+
+            <div class="activity">
+                🚑 Team Bravo assigned to SR002
+                <small>Sample activity</small>
+            </div>
+
+            <div class="activity">
+                ✅ Case SR003 marked as resolved
+                <small>Sample activity</small>
+            </div>
 
         </section>
 
     </main>
-</div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // Search cases
+
+        const searchInput = document.getElementById("searchInput");
+        const statusFilter = document.getElementById("statusFilter");
+
+        function filterCases() {
+
+            let searchText = searchInput.value.toLowerCase();
+            let selectedStatus = statusFilter.value;
+
+            let rows = document.querySelectorAll("#caseTable tr");
+
+            rows.forEach(function(row) {
+
+                let rowText = row.innerText.toLowerCase();
+                let rowStatus = row.getAttribute("data-status");
+
+                let matchesSearch = rowText.includes(searchText);
+
+                let matchesStatus =
+                    selectedStatus === "all" ||
+                    rowStatus === selectedStatus;
+
+                row.style.display =
+                    matchesSearch && matchesStatus ? "" : "none";
+
+            });
+        }
+
+        searchInput.addEventListener("input", filterCases);
+        statusFilter.addEventListener("change", filterCases);
+
+
+        // Assign a rescue team
+
+        function assignTeam(caseId) {
+
+            let team = prompt(
+                "Enter the rescue team name for " + caseId +
+                " (Team Alpha or Team Charlie):"
+            );
+
+            if (team) {
+                alert(caseId + " assigned to " + team);
+            }
+
+        }
+
+
+        // Assign rescue team
+
+        function assignRescue(teamName) {
+
+            let caseId = prompt("Enter the Case ID to assign to " + teamName);
+
+            if (caseId) {
+                alert(teamName + " selected for case " + caseId);
+            }
+
+        }
+
+
+        // View case details
+
+        function viewCase(caseId) {
+
+            alert("Viewing details of " + caseId);
+
+        }
+
+    </script>
 
 </body>
 </html>
