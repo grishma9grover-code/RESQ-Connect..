@@ -1,16 +1,112 @@
+
 <html>
-    <head>
-        <style>
-            body{background-image:url(role.jpeg);}
-        </style>
-   </head>
-   <body>
-<h1 style="font-size:60px; position: absolute; top: 195px; left: 548px; color:whitesmoke;">Choose your role</h1>
-  <a href="userdashboard.html"><img src = "user.jpeg" width="150px" height="170px" style="position: absolute; top: 355px; left: 500px; border-radius: 50px;"> </a>
-   <a href="coordinator-dash.html"><img src = "coordinator.jpeg" width="150px" height="170px" style="position: absolute; top: 355px; left: 730px; border-radius: 50px;"> </a>
- <a href=""><img src = "rescueteam.jpeg" width="150px" height="170px" style="position: absolute; top: 355px; left: 960px; border-radius: 50px;"> </a>
+<head>
+    <title>Choose Your Role - ResQ Connect</title>
 
+    <style>
+        body {
+            background-image: url(role.jpeg);
+            background-size: cover;
+            background-position: center;
+        }
 
+        .role-image {
+            width: 150px;
+            height: 170px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 style="font-size:60px; position:absolute; top:195px; left:548px; color:whitesmoke;">
+        Choose your role
+    </h1>
+
+    <!-- User -->
+    <img src="user.jpeg"
+         class="role-image"
+         onclick="chooseRole('user')"
+         style="position:absolute; top:355px; left:500px;">
+
+    <!-- Coordinator -->
+    <img src="coordinator.jpeg"
+         class="role-image"
+         onclick="chooseRole('coordinator')"
+         style="position:absolute; top:355px; left:730px;">
+
+    <!-- Rescue Team -->
+    <img src="rescueteam.jpeg"
+         class="role-image"
+         onclick="chooseRole('rescue-team')"
+         style="position:absolute; top:355px; left:960px;">
+
+    <script>
+
+        function chooseRole(selectedRole) {
+
+            // Get signup details saved on previous page
+            let pendingSignup = JSON.parse(
+                sessionStorage.getItem("pendingSignup")
+            );
+
+            if (!pendingSignup) {
+                alert("Please signup first.");
+                window.location.href = "Signup.html";
+                return;
+            }
+
+            // Get existing accounts
+            let accounts = JSON.parse(
+                localStorage.getItem("resqAccounts")
+            ) || [];
+
+            // Check duplicate email
+            let existingAccount = accounts.find(function(account) {
+                return account.email === pendingSignup.email;
+            });
+
+            if (existingAccount) {
+                alert("This email is already registered. Please login.");
+                window.location.href = "Login.html";
+                return;
+            }
+
+            // Add selected role to account
+            let newAccount = {
+                name: pendingSignup.name,
+                email: pendingSignup.email,
+                mobile: pendingSignup.mobile,
+                password: pendingSignup.password,
+                role: selectedRole
+            };
+
+            // Save account
+            accounts.push(newAccount);
+
+            localStorage.setItem(
+                "resqAccounts",
+                JSON.stringify(accounts)
+            );
+
+            // Remove temporary signup information
+            sessionStorage.removeItem("pendingSignup");
+
+            alert("Account created successfully!");
+
+            // Redirect to selected dashboard
+            let dashboards = {
+                "user": "userdashboard.html",
+                "coordinator": "coordinator-dash.html",
+                "rescue-team": "rescue-team-dash.html"
+            };
+
+            window.location.href = dashboards[selectedRole];
+        }
+
+    </script>
 
 </body>
 </html>
